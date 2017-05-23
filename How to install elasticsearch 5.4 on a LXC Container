@@ -1,0 +1,55 @@
+Warning: When creating LXC container; You must create privelaged otherwise
+ulimit parameters cannot be set. 
+
+Part 0 - Create a user and give it permissions
+$ adduser elastic 
+$ sudo mkdir /var/log/elasticsearch
+$ sudo mkdir /var/data
+$ sudo mkdir /var/data/elasticsearch
+$ sudo chown -R elastic /var/log/elasticsearch
+$ sudo chown -R elastic /var/data/elasticsearch
+
+Part 1 - Increase openfile limit
+Edit /etc/security/limits.conf and add the following ruleset
+elastic  -  nofile  65536
+
+Verify ulimit applied
+$ ulimit -a
+
+
+Part 2 - Increase VM size on the host(Hypervisor)
+$ sysctl -w vm.max_map_count=262144
+or  Edit /etc/sysctl.conf to make it permanent
+
+
+part 3 - Installation
+[Java]
+$ apt update
+$ sudo apt-get install default-jdk
+
+[Elastic - Manual Method]
+#NOTE - Make sure to run as elastic (user you created; otherwise chown)
+$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.4.0.tar.gz
+$ sha1sum elasticsearch-5.4.0.tar.gz 
+$ tar -xzf elasticsearch-5.4.0.tar.gz
+$ cd elasticsearch-5.4.0/ 
+
+[Elasticsearch.yml Config]
+cluster.name: cluster-name
+node.name: ${HOSTNAME}
+network.host: 172.16.20.x
+path.data: /var/data/elasticsearch
+path.logs: /var/log/elasticsearch
+
+
+Errors to address later on:
+TODO:
+Couldn't write '1' to 'fs/protected_hardlinks', ignoring: Read-only file system
+Couldn't write '262144' to 'vm/max_map_count', ignoring: Read-only file system
+Couldn't write '176' to 'kernel/sysrq', ignoring: Read-only file system
+Couldn't write '65536' to 'vm/mmap_min_addr', ignoring: Read-only file system
+Couldn't write '4 4 1 7' to 'kernel/printk', ignoring: Read-only file system
+Couldn't write '1' to 'fs/protected_symlinks', ignoring: Read-only file system
+Couldn't write '1' to 'net/ipv4/tcp_syncookies', ignoring: No such file or directory
+Couldn't write '1' to 'kernel/kptr_restrict', ignoring: Read-only file system
+Couldn't write '1' to 'kernel/yama/ptrace_scope', ignoring: Read-only file system
