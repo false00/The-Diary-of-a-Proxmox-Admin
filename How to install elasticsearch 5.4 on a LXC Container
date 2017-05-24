@@ -1,4 +1,4 @@
-Warning: When creating LXC container; You must create privelaged otherwise
+Warning: When creating LXC container; You must create privileged otherwise
 ulimit parameters cannot be set. 
 
 Part 0 - Create a user and give it permissions
