@@ -1,0 +1,31 @@
+OS: Windows 10/2016
+CD/DVD: Windows 2016.iso
+Hard Disk: Bus/Device: SCSI
+CPU: Cores: 4
+Memory: 4096
+Network: Model: VirtIO (paravirtualized)
+
+Add CD/DVD: Virtio-win-*.iso
+Options: Enable Qemu Agent
+
+Load SCSI Driver: /vioscsi/2k16/amd64
+
+Device Manager: Ethernet Controller - /NetKVM/2k16/amd64
+Device Manager: VirtIO Ballon Driver
+Device Manager: VirtIO Serial Driver
+
+CD: Install Guest-Agent
+linux:
+	apt-get install qemu-guest-agent
+	yum install qemu-guest-agent
+CD: CP Balloon into /program_files/Balloon(remame to this); open in CMD; run blnsvr.exe -i
+
+Enable Spice:
+
+Download drivers from spice website and install it. (spice guest tools)
+linux: https://www.ovirt.org/documentation/how-to/guest-agent/install-the-spice-guest-agent/
+	sudo yum install spice-vdagent
+	apt-get install spice-vdagent
+Enable Graphics options in proxmox to use spice.
+Download the virt-viewer on your PC. https://virt-manager.org/download/
+	https://virt-manager.org/download/sources/virt-viewer/virt-viewer-x64-5.0.msi
