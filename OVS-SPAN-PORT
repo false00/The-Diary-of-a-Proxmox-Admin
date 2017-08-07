@@ -1,0 +1,37 @@
+How to setup a Virtual SPAN port in Proxmox
+-Juan Ortega
+July 20th, 2017
+
+Overview
+1. Create linux bridges via web gui
+2. Restart System
+3. Install OpenVSwitch Package on Proxmox
+4. Create OVS Bridge
+5. Create Access Port
+6. Create SPAN Port
+
+
+Create Proxmox Interfaces vmbr1 in Proxmox
+  a. Create OpenVSwitch Bridge
+    $ ovs-vsctl add-br vmbr1
+  b. Create Linux Bridges (vmbr2 and vmbr3)
+    vmbr2 == Access Port
+    vmbr3 == SPAN port
+
+Create Access Port
+  $ ovs-vsctl add-port vmbr1 vmbr2 tag=9
+    #ovs-vsctl set port vmbr2 tag=9 <---- if interface is already created
+
+
+== Port Mirroring
+One Liner:
+$ ovs-vsctl add-port vmbr1 vmbr3 -- --id=@p get port vmbr3 -- --id=@m create mirror name=m0 select-all=true output-port=@p -- set bridge vmbr1 mirrors=@m
+
+Expanded:
+$ ovs-vsctl add-port vmbr1 vmbr3 \
+    -- --id=@p get port vmbr3 \
+    -- --id=@m create mirror name=m0 select-all=true output-port=@p \
+    -- set bridge vmbr1 mirrors=@m
+
+== Checking if interfaces were created
+ovs-vsctl show
