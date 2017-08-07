@@ -5,4 +5,4 @@ A series of how to guides for proxmox
 If you ever tried to install elasticsearch in an lxc container; I'm sure you're aware of the terrible pain and suffering that comes from trying to set it up. Here's a guide that will hopefully help. 
 
 #### How to setup a virtual SPAN port with ProxMox using Open-vSwitch [Guide](https://github.com/ucatech/The-Diary-of-a-Proxmox-Admin/blob/master/OVS-SPAN-PORT)
-The following documentation demonstrates how to setup a SPAN port (ports mirroring) on a fresh installation of proxmox. This can be used to configure a network monitoring tool like suricata or bro within your virtual proxmox environment. 
+The following documentation demonstrates how to setup a SPAN port (port mirroring) on a fresh installation of proxmox. This can be used to configure a network monitoring tool like suricata or bro within your virtual proxmox environment. 
