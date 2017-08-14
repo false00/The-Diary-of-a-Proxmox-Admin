@@ -1,0 +1,30 @@
+auto lo
+iface lo inet loopback
+
+iface eno1 inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+        address  10.0.0.2
+        netmask  255.255.255.0
+        gateway  10.0.0.1
+        bridge_ports eno1
+        bridge_stp off
+        bridge_fd 0
+
+auto vmbr1
+iface vmbr1 inet manual
+        ovs_type OVSBridge
+
+auto vmbr2
+iface vmbr2 inet manual
+        bridge_ports none
+        bridge_stp off
+        bridge_fd 0
+
+auto vmbr3
+iface vmbr3 inet manual
+        bridge_ports none
+        bridge_stp off
+        bridge_fd 0
+
