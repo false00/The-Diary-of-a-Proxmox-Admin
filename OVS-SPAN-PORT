@@ -10,11 +10,15 @@ Overview
 5. Create Access Port
 6. Create SPAN Port
 
+Install OpenvSwitch Package
+$ apt-get install openvswitch-switch
+
+Create OVS Bridge
+  Datacenter > pve > Network > Create > OVS Bridge
+
 Create 2 Linux Bridges via WEB GUI
   Datacenter > pve > Network > Create > Linux Bridge
 
-Install OpenvSwitch Package
-$ apt-get install openvswitch-switch
 
 Create Proxmox Interfaces vmbr1 in Proxmox
   a. Create OpenVSwitch Bridge
